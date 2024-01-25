@@ -1,0 +1,29 @@
+.search{
+  height: max(6vh, 40px);
+  width: 100%;
+  display: inline-flex;
+}
+
+.search-bar{
+  height: 30px;
+  width: 90%;
+  background-color: #ddd;
+  margin: auto;
+  border: 0px;
+  border-radius: 10px 0px 0px 10px;
+  margin-right: 0px;
+  padding: 0px;
+  color: black;
+  padding-left: 5px;
+}
+.search-submit{
+  background-color: green;
+  height: 30px;
+  margin: auto;
+  margin-left: 0px;
+  border-radius: 0px 10px 10px 0px;
+  content: "🔍";
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}

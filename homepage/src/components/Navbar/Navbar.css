@@ -1,20 +1,23 @@
 .navbar {
-    background-color: #333;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background-color: #fff;
+    margin: 0;
+    width: 100vw;
+    box-shadow: 0px 0px 5px black;
+    height: min-content;
 }
 
 .nav-list {
     list-style-type: none;
     display: flex;
+    align-items: center;
 }
 
 .nav-item{
-  color: #fff;
-  margin: 20px;
+  color: black;
+  margin: 1vw;
+  font-size: max(1vw, 17px);
+  text-wrap: nowrap;
+  cursor: pointer;
 }
 .nav-item.active {
   color: red;
