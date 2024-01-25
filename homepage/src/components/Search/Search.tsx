@@ -5,7 +5,7 @@ const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = () => {
-    window.location.href = `/products?search=${encodeURIComponent(searchTerm)}`
+    window.location.href = `/search?q=${encodeURIComponent(searchTerm)}`
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {

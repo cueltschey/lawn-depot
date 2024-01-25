@@ -25,7 +25,7 @@ function App() {
     <div className='main'>
       <Search/>
       <Navbar changePage={changePage} pages={pages} page_number={page}/>
-      {page === 0 ? <Home/> : <Product/>}
+      {page === 0 ? <Home/> : <Product category='moss'/>}
       <footer>Charles Ueltschey 2024 | chaseuelt@gmail.com | <a href='https://github.com/cueltschey'>
         cueltschey
       </a></footer>
