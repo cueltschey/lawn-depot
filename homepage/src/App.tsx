@@ -19,13 +19,22 @@ function App() {
     "Statues",
     "Wall Decor"
   ]
-
+  const categories = [
+    "None",
+    "birdhouses",
+    "hanging",
+    "moss",
+    "spinners",
+    "statues",
+    "wall"
+  ]
+  
 
   return (
     <div className='main'>
       <Search/>
       <Navbar changePage={changePage} pages={pages} page_number={page}/>
-      {page === 0 ? <Home/> : <Product category='moss'/>}
+      {page === 0 ? <Home/> : <Product category={categories[page]}/>}
       <footer>Charles Ueltschey 2024 | chaseuelt@gmail.com | <a href='https://github.com/cueltschey'>
         cueltschey
       </a></footer>

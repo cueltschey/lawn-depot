@@ -1,0 +1,28 @@
+.card{
+  color: black;
+  width: 30%;
+  text-align: center;
+  box-shadow: 0px 0px 5px black;
+  margin: 20px;
+  padding: 10px 0px;
+  border-radius: 10px;
+}
+.card h1{
+  font-size: 25px;
+  color: green;
+  margin: 20px;
+}
+.card p{
+  font-size: 20px;
+}
+.card img{
+  width: 70%;
+}
+.popup{
+  width: 90%;
+  height: 90%;
+  position: absolute;
+  background: white;
+  magin: auto;
+  border: 1px solid black;
+}
