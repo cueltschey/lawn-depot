@@ -5,9 +5,7 @@ const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = () => {
-    // Replace this with the actual function you want to run on search
-    console.log(`Search term: ${searchTerm}`);
-    window.location.href = "/products"
+    window.location.href = `/products?search=${encodeURIComponent(searchTerm)}`
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
