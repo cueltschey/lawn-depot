@@ -1,13 +1,11 @@
-// Import required modules
 const express = require('express');
+const path = require('path');
 
-// Create an Express application
 const app = express();
-const port = 3000; // You can change this port number as needed
+const port = 3000;
 
-// Define route for the home page (/)
 app.get('/', (req, res) => {
-    res.send('Welcome to the home page!');
+    res.sendFile(path.join(__dirname, '/homepage/dist/index.html'));
 });
 
 // Define route for the products page (/products)
