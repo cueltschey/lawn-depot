@@ -18,11 +18,10 @@
 .card img{
   width: 70%;
 }
-.popup{
-  width: 90%;
-  height: 90%;
-  position: absolute;
-  background: white;
-  magin: auto;
-  border: 1px solid black;
+
+.enlarged-card{
+  height: 80vh;
+  width: 80vw;
+  color: #fff;
 }
+

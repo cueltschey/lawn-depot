@@ -4,6 +4,7 @@ import Navbar from './components/Navbar/Navbar.tsx'
 import Product from './components/Product/Product.tsx';
 import Home from './components/Home/Home.tsx'
 import Search from './components/Search/Search.tsx';
+import Result from './components/Search/Result.tsx'
 
 
 function App() {
@@ -28,13 +29,20 @@ function App() {
     "statues",
     "wall"
   ]
+  const [term, setTerm] = useState("");
+  const changeTerm = (newTerm: string) => {
+    setTerm(newTerm);
+  }
   
 
   return (
     <div className='main'>
-      <Search/>
+      <div className="top">
+      <Search term={term} changeTerm={changeTerm} changePage={changePage}/>
       <Navbar changePage={changePage} pages={pages} page_number={page}/>
-      {page === 0 ? <Home/> : <Product category={categories[page]}/>}
+      </div>
+      <div className="spacer"/>
+      {page === 0 ? <Home/> :page < 100? <Product category={categories[page]}/> : <Result term={term}/>}
       <footer>Charles Ueltschey 2024 | chaseuelt@gmail.com | <a href='https://github.com/cueltschey'>
         cueltschey
       </a></footer>

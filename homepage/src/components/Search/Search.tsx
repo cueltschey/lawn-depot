@@ -1,26 +1,28 @@
-import { useState } from "react"
 import "./Search.css"
 
-const Search = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+interface Props {
+  changePage: (page: number) => void;
+  term: string;
+  changeTerm: (newTerm: string) => void;
+}
 
-  const handleSearch = () => {
-    window.location.href = `/search?q=${encodeURIComponent(searchTerm)}`
-  };
+const Search = ({changePage, term, changeTerm}:Props) => {
+
+  
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      handleSearch();
+      changePage(100)
     }
   };
   
   return (
     <div className="search">
       <input type="text" className="search-bar"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        value={term}
+        onChange={(e) => changeTerm(e.target.value)}
         onKeyPress={handleKeyPress}/>
-      <button className="search-submit" onClick={() => handleSearch()}>
+      <button className="search-submit" onClick={() => changePage(100)}>
         <span>🔍</span>
       </button>
     </div>
