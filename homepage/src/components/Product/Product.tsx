@@ -14,7 +14,7 @@ const Product = ({category}:Props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/products?cat=${encodeURIComponent(category)}`);
+        const response = await fetch(`/products?cat=${encodeURIComponent(category)}`);
         const result = await response.json();
         setData(result);
         console.log(result)

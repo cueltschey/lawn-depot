@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const sqlite3 = require('sqlite3');
+const cookieParser = require("cookie-parser")
 
 const db = new sqlite3.Database("./backend/Products.db");
 const app = express();
@@ -8,6 +9,8 @@ const port = 3000;
 
 app.use(express.static(path.join(__dirname, "/homepage/dist")))
 app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+app.use(cookieParser())
 
 app.get('/', (req,res) => {
     res.sendFile(path.join(__dirname, '/homepage/dist/'));
@@ -59,6 +62,18 @@ app.get("/products", (req, res) => {
     })
   }
 })
+
+app.post('/login', (req, res) => {
+  // Check login credentials (replace this with your authentication logic)
+  const { username, password } = req.body;
+  if (username === 'your_username' && password === 'your_password') {
+    // Set a temporary cookie with a 1-hour expiration time
+    res.cookie('user', 'authenticated', { maxAge: 3600000, httpOnly: true });
+    res.json({"valid":true});
+  } else {
+    res.json({"valid":false});
+  }
+});
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
