@@ -24,8 +24,8 @@ const Product = ({category}:Props) => {
     };
 
     fetchData();
-  }, []); 
-   const test = "https://www.marthastewart.com/thmb/jOxXFYCSU3Q7iYkMCrcM6ZSfEmo=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/dracula-monkey-face-orchid-0718-23c698bf2d7d4cada62ca2b2e7696084-horiz-0623-7213943b22454acca6fd40584c2e718b.jpg"
+  }, [category]); 
+
   return (
   <div>
       <ul className="card-wrapper">
@@ -35,14 +35,6 @@ const Product = ({category}:Props) => {
           price={item["price"]}
           key={index}
         />))}
-        <Card title="test" image_url={test} price="$10.00"/>
-        <Card title="test" image_url={test} price="$10.00"/>
-        <Card title="test" image_url={test} price="$10.00"/>
-        <Card title="test" image_url={test} price="$10.00"/>
-        <Card title="test" image_url={test} price="$10.00"/>
-        <Card title="test" image_url={test} price="$10.00"/>
-        <Card title="test" image_url={test} price="$10.00"/>
-        <Card title="test" image_url={test} price="$10.00"/>
       </ul>
   </div>
   ) 
