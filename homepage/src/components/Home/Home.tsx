@@ -3,7 +3,7 @@ import './Home.css'
 const Home = () => {
   
   const toAdmin = () => {
-    window.location.href = "/admin"
+    window.location.href = "/#"
   }
 
   return (

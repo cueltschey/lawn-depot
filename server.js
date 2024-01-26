@@ -6,20 +6,15 @@ const cookieParser = require("cookie-parser")
 const db = new sqlite3.Database("./backend/Products.db");
 const app = express();
 const port = 3000;
-
-app.use(express.static(path.join(__dirname, "/homepage/dist")))
-app.use(express.static(path.join(__dirname, "login/dist")))
+// error with statix, ask chatGPT
+app.use(express.static(path.join(__dirname, "homepage/dist")))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(cookieParser())
 
 app.get('/', (req,res) => {
-  console.log("working")
-  console.log(req.cookies.user)
-  console.log(req.cookies)
     if(req.cookies.user && req.cookies.user == "authenticated"){
-      console.log(req.cookies.user)
-      res.sendFile(path.join(__dirname, '/homepage/dist/'));
+      res.send(path.join(__dirname,"hompage/dist"))
     }
     else{
       res.redirect("/#")
