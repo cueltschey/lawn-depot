@@ -8,13 +8,27 @@ const app = express();
 const port = 3000;
 
 app.use(express.static(path.join(__dirname, "/homepage/dist")))
+app.use(express.static(path.join(__dirname, "login/dist")))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(cookieParser())
 
 app.get('/', (req,res) => {
-    res.sendFile(path.join(__dirname, '/homepage/dist/'));
+  console.log("working")
+  console.log(req.cookies.user)
+  console.log(req.cookies)
+    if(req.cookies.user && req.cookies.user == "authenticated"){
+      console.log(req.cookies.user)
+      res.sendFile(path.join(__dirname, '/homepage/dist/'));
+    }
+    else{
+      res.redirect("/#")
+    }
 });
+
+app.get('/#', (req,res) => {
+  res.sendFile(path.join(__dirname, 'login/dist/'))
+})
 
 app.get('/search', (req, res) => {
 
@@ -64,9 +78,8 @@ app.get("/products", (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-  // Check login credentials (replace this with your authentication logic)
   const { username, password } = req.body;
-  if (username === 'your_username' && password === 'your_password') {
+  if (username === 'test' && password === 'test') {
     // Set a temporary cookie with a 1-hour expiration time
     res.cookie('user', 'authenticated', { maxAge: 3600000, httpOnly: true });
     res.json({"valid":true});

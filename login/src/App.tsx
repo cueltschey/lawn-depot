@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import Login from './components/Login/Login'
+import Admin from './components/Admin/Admin.tsx'
 
 function App() {
     const [page, setPage] = useState(0)
