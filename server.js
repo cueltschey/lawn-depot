@@ -7,22 +7,28 @@ const db = new sqlite3.Database("./backend/Products.db");
 const app = express();
 const port = 3000;
 // error with statix, ask chatGPT
-app.use(express.static(path.join(__dirname, "homepage/dist")))
+app.use(express.static(path.join(__dirname, "dist")))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(cookieParser())
 
-app.get('/', (req,res) => {
-    if(req.cookies.user && req.cookies.user == "authenticated"){
-      res.send(path.join(__dirname,"hompage/dist"))
-    }
-    else{
-      res.redirect("/#")
-    }
+const authenticate = (req, res, next) => {
+  const isAuthenticated = req.cookies.user === 'authenticated';
+
+  if (isAuthenticated) {
+    next();
+  } else {
+    res.redirect('/auth')
+  }
+};
+
+app.get('/',authenticate, (req,res) => {
+    res.sendFile(path.join(__dirname,"dist/homepage/index.html"))
 });
 
-app.get('/#', (req,res) => {
-  res.sendFile(path.join(__dirname, 'login/dist/'))
+
+app.get('/auth', (req,res) => {
+    res.sendFile(path.join(__dirname, "dist/login/index.html"))
 })
 
 app.get('/search', (req, res) => {
