@@ -7,9 +7,10 @@ interface Props{
   title: string;
   price: string;
   item_id: number;
+  category: string;
 }
 
-const Card = ({image_url, title, price, item_id}:Props) => {
+const Card = ({image_url, title, price, item_id, category}:Props) => {
   const [isClicked, setIsClicked] = useState(false)
 
   const toggleVisibility = () => {
@@ -19,7 +20,8 @@ const Card = ({image_url, title, price, item_id}:Props) => {
     const response = await axios.post("/cart", {
       product_id: item_id,
       user_id: 1,
-      quantity: 1
+      quantity: 1,
+      category: category
     })
     console.log(response)
   }

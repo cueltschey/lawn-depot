@@ -5,6 +5,7 @@ import Product from './components/Product/Product.tsx';
 import Home from './components/Home/Home.tsx'
 import Search from './components/Search/Search.tsx';
 import Result from './components/Search/Result.tsx'
+import Cart from './components/Cart/Cart.tsx'
 
 
 function App() {
@@ -42,7 +43,8 @@ function App() {
       <Navbar changePage={changePage} pages={pages} page_number={page}/>
       </div>
       <div className="spacer"/>
-      {page === 0 ? <Home/> :page < 100? <Product category={categories[page]}/> : <Result term={term}/>}
+      {page === 0 ? <Home/> :page < 100? <Product category={categories[page]}/>:
+        page === 100? <Result term={term}/>: <Cart/>}
       <footer>Charles Ueltschey 2024 | chaseuelt@gmail.com | <a href='https://github.com/cueltschey'>
         cueltschey
       </a></footer>

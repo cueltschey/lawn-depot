@@ -16,6 +16,7 @@ const Navbar = ({changePage, page_number, pages}:Props) => {
         <li key={index} className={index == page_number ? "nav-item active":"nav-item"} onClick={() => changePage(index)}>{page_name}</li>
         ))}
       </ul>
+      <button className="cart-button" onClick={()=>changePage(101)}>View Cart</button>
     </div>
   )
 }

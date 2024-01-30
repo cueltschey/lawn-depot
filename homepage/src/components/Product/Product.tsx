@@ -31,15 +31,13 @@ const Product = ({category}:Props) => {
   return (
   <div>
       <ul className="card-wrapper">
-        <Card image_url={test_url} title="flower" price="0.00" item_id={1} />
-        <Card image_url={test_url} title="flower" price="0.00" item_id={1} />
-        <Card image_url={test_url} title="flower" price="0.00" item_id={1} />
-        <Card image_url={test_url} title="flower" price="0.00" item_id={1} />
+        <Card image_url={test_url} title="flower" price="0.00" item_id={1} category={category}/>
         {data.map((item, index) => (<Card 
           image_url={item["image_url"]} 
           title={item["name"]}
           price={item["price"]}
           item_id={item["id"]}
+          category={category}
           key={index}
         />))}
       </ul>
