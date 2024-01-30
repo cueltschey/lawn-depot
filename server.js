@@ -4,6 +4,7 @@ const sqlite3 = require('sqlite3');
 const cookieParser = require("cookie-parser")
 
 const db = new sqlite3.Database("./backend/Products.db");
+const auth_db = new sqlite3.Database("./backend/Auth.db")
 const app = express();
 const port = 3000;
 // error with statix, ask chatGPT
@@ -80,14 +81,22 @@ app.get("/products", (req, res) => {
 
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
-  if (username === 'test' && password === 'test') {
-    // Set a temporary cookie with a 1-hour expiration time
-    res.cookie('user', 'authenticated', { maxAge: 3600000, httpOnly: true });
-    res.json({"valid":true});
-  } else {
-    res.json({"valid":false});
-  }
-});
+  auth_db.all(`SELECT password FROM Users WHERE username='${username}'`, (err,rows) => {
+    if(err){
+      console.log(err);
+      res.json({"valid":false})
+    } else{
+      if(rows[0]["password"] == password){
+        res.cookie('user', 'authenticated', { maxAge: 3600000, httpOnly: true });
+        res.json({"valid":true});
+      } else{
+        console.log(rows[0]["password"])
+        console.log("incorrect password");
+        res.json({"valid":false})
+      }
+    }
+  })
+  });
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
