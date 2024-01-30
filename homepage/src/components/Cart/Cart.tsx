@@ -1,23 +1,26 @@
 import "./Cart.css"
+import axios from 'axios'
+import CartItem from "./CartItem.tsx"
+import {useEffect, useState} from 'react'
 
 interface Props{
   user_id: number;
 }
 
 const Cart = ({user_id}:Props) => {
-  const [items, setItems] = useEffect([]);
+  const [items, setItems] = useState([]);
   useEffect(()=>{
-    const getCartItems = async (user_id: number) => {
-      const response = await axios.get("/cart", {user_id: user_id})
-      const result = await response.json()
-      setItems(result)
+    const getCartItems = async () => {
+      const response = await axios.get("/cart", {params:{user_id: user_id}})
+      setItems(response.data)
     }
+    getCartItems()
   }, []);
   return (
     <div className="cart">
       <ul>
-       {items.map((item, index) => (
-       <li key={index}>{item["name"]}</li>
+       {items.map((item: any, index :number) => (
+       <CartItem key={index} product_id={item["product_id"]} quantity={item["quantity"]}/>
        ))} 
       </ul>
     </div>

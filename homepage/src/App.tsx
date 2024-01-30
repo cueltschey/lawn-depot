@@ -44,7 +44,7 @@ function App() {
       </div>
       <div className="spacer"/>
       {page === 0 ? <Home/> :page < 100? <Product category={categories[page]}/>:
-        page === 100? <Result term={term}/>: <Cart/>}
+        page === 100? <Result term={term}/>: <Cart user_id={1}/>}
       <footer>Charles Ueltschey 2024 | chaseuelt@gmail.com | <a href='https://github.com/cueltschey'>
         cueltschey
       </a></footer>
