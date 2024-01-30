@@ -116,6 +116,19 @@ app.post('/register', (req, res) => {
   }
 })
 
+app.post('/cart', (req, res) => {
+  const {product_id, user_id, quantity} = req.body;
+  try{
+    db.run(
+      'INSERT INTO Cart (product_id, user_id, quantity) VALUES (?,?,?)',
+      [product_id, user_id, quantity]
+    )
+    res.status(200).json({valid: true})
+  } catch(err){
+    res.status(500).json({error: "Internal Server Error"})
+  }
+})
+
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
