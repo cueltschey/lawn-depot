@@ -26,13 +26,18 @@ const Product = ({category}:Props) => {
     fetchData();
   }, [category]); 
 
+  const test_url = "https://cdn.britannica.com/89/131089-050-A4773446/flowers-garden-petunia.jpg"
+
   return (
   <div>
       <ul className="card-wrapper">
+        <Card image_url={test_url} title="flower" price="0.00" item_id={1} category={category}/>
         {data.map((item, index) => (<Card 
           image_url={item["image_url"]} 
           title={item["name"]}
           price={item["price"]}
+          item_id={item["id"]}
+          category={category}
           key={index}
         />))}
       </ul>

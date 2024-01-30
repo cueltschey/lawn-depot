@@ -32,6 +32,8 @@ const Result = ({term}:Props) => {
           image_url={item["image_url"]} 
           title={item["name"]}
           price={item["price"]}
+          item_id={item["id"]}
+          category={"all"}
           key={index}
         />))}
       </ul>

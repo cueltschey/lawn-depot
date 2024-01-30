@@ -38,19 +38,8 @@ app.get('/auth', (req,res) => {
 app.get('/search', (req, res) => {
 
   const searchQ = req.query.q;
-  console.log(searchQ)
   if(searchQ){
-    db.all(`
-        SELECT * FROM moss WHERE name LIKE '%${searchQ}%'
-        UNION
-        SELECT * FROM birdhouses WHERE name LIKE '%${searchQ}%'
-        UNION
-        SELECT * FROM spinners WHERE name LIKE '%${searchQ}%'
-        UNION
-        SELECT * FROM hanging WHERE name LIKE '%${searchQ}%'
-        UNION
-        SELECT * FROM wall WHERE name LIKE '%${searchQ}%'
-      `, (err, rows) => {
+    db.all(`SELECT * FROM Products WHERE name LIKE '%${searchQ}%'`, (err, rows) => {
       if(err){
         console.error(err)
         res.json([{"name":"Internal Server Error: 500", "image_url":"https://www.marthastewart.com/thmb/jOxXFYCSU3Q7iYkMCrcM6ZSfEmo=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/dracula-monkey-face-orchid-0718-23c698bf2d7d4cada62ca2b2e7696084-horiz-0623-7213943b22454acca6fd40584c2e718b.jpg","price":""}])
@@ -66,15 +55,23 @@ app.get('/search', (req, res) => {
 });
 
 app.get("/products", (req, res) => {
-  const table = req.query.cat;
-  if(!table){
-    res.redirect("/")
+  const category = req.query.cat;
+  const product_id = req.query.product_id;
+  console.log(category)
+  if(category == "none"){
+    db.all(`SELECT * FROM Products WHERE id='${product_id}'`, (err, rows) => {
+      if(err){
+        console.log(err)
+        res.status(500).json({error:'Internal Server Error'})
+      } else{
+        res.json(rows)
+      }
+    })
   } else{
-    db.all(`SELECT * FROM ${table}`, (err,rows) => {
+    db.all(`SELECT * FROM Products WHERE category='${category}'`, (err,rows) => {
       if(err){
         console.error(err)
         res.json([{"name":"No Data Found", "image_url":"https://www.marthastewart.com/thmb/jOxXFYCSU3Q7iYkMCrcM6ZSfEmo=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/dracula-monkey-face-orchid-0718-23c698bf2d7d4cada62ca2b2e7696084-horiz-0623-7213943b22454acca6fd40584c2e718b.jpg","price":""}])
-
       } else {
         res.json(rows);
       }
@@ -85,7 +82,7 @@ app.get("/products", (req, res) => {
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
   auth_db.all(`SELECT password FROM Users WHERE username='${username}'`, (err,rows) => {
-    if(err){
+    if(err || rows.length <= 0){
       console.log(err);
       res.json({"valid":false})
     } else{
@@ -95,7 +92,7 @@ app.post('/login', (req, res) => {
       } else{
         console.log(rows[0]["password"])
         console.log("incorrect password");
-        res.json({"valid":false})
+        res.status(403).json({"valid":false})
       }
     }
   })
@@ -115,6 +112,31 @@ app.post('/register', (req, res) => {
     res.status(500).json({error:"Internal Server Error"})
   }
 })
+
+app.route('/cart')
+  .post((req, res) => {
+  const {product_id, user_id, quantity, category} = req.body;
+  try{
+    db.run(
+      'INSERT INTO Cart (product_id, user_id, quantity, category) VALUES (?,?,?,?)',
+      [product_id, user_id, quantity, category]
+    )
+    res.status(200).json({valid: true})
+  } catch(err){
+    res.status(500).json({error: "Internal Server Error"})
+  }
+})
+  .get((req, res) => {
+    const user_id = req.query.user_id;
+    db.all(`SELECT * FROM Cart WHERE user_id='${user_id}'`, (err, rows)=>{
+      if(err){
+        console.log(err)
+        res.status(500).json({error:"Internal Server Error"})
+      } else{
+        res.json(rows)
+      }
+    })
+  })
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
