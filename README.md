@@ -13,3 +13,4 @@ The app is made to run on the cloud, such as AWS EC2.
 * Instantaneous page switching
 * Login Cookies that last 1 hour
 * Product adding and customization
+* Users can view and update cart
