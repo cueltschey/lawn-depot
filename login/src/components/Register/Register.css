@@ -1,0 +1,14 @@
+.register{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+.register input{
+  width: 90%;
+  color: black;
+}
+.register button{
+  margin: 20px;
+}

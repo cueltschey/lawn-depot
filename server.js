@@ -7,11 +7,14 @@ const db = new sqlite3.Database("./backend/Products.db");
 const auth_db = new sqlite3.Database("./backend/Auth.db")
 const app = express();
 const port = 3000;
-// error with statix, ask chatGPT
+
+
+
 app.use(express.static(path.join(__dirname, "dist")))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(cookieParser())
+
 
 const authenticate = (req, res, next) => {
   const isAuthenticated = req.cookies.user === 'authenticated';
@@ -97,6 +100,21 @@ app.post('/login', (req, res) => {
     }
   })
   });
+
+app.post('/register', (req, res) => {
+  const {username, password, name, creditCardNumber, dob} = req.body;
+  try {
+    const result = auth_db.run(
+      'INSERT INTO Users (username, password, name, creditCardNumber, dob) VALUES (?, ?, ?, ?, ?)',
+      [username, password, name, creditCardNumber, dob]
+    )
+    console.log(result)
+    res.status(201).json({"valid": true})
+  } catch(err){
+    console.log(err)
+    res.status(500).json({error:"Internal Server Error"})
+  }
+})
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

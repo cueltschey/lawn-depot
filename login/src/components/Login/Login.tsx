@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import "./Login.css"
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isValid, setIsValid]= useState(true);
 
   const handleLogin = async () => {
     try {
@@ -23,6 +25,7 @@ const Login = () => {
         // Redirect or perform any other action upon successful login
       } else {
         console.error('Login failed');
+        setIsValid(false);
       }
     } catch (error) {
       console.error('Error during login:', error);
@@ -32,7 +35,8 @@ const Login = () => {
   return (
     <div>
       <h2 style={{color:"black", textAlign:"center", margin:20}}>Login</h2>
-      <form style={{display:"flex", alignItems: "center", flexDirection:"column"}}>
+      {isValid? <></>: <p style={{color: "red"}}>Error: Failed to log in</p>}
+      <form className='login' style={{display:"flex", alignItems: "center", flexDirection:"column"}}>
         <div>
           <label htmlFor="username">Username:</label>
           <input
